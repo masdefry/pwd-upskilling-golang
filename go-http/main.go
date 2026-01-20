@@ -13,7 +13,7 @@
 // 	Email string `json:"email"`
 // };
 
-// type Product struct { 
+// type Product struct {
 // 	Name string `json:"name"`
 // 	Price int16 `json:"price"`
 // }
@@ -39,7 +39,7 @@
 
 // 		fmt.Println(id);
 // 		fmt.Println(name);
-	
+
 // 		response.WriteHeader(http.StatusOK)
 // 		response.Write([]byte("GET products"))
 
@@ -52,7 +52,7 @@
 // 			http.Error(response, err.Error(), http.StatusBadRequest)
 // 			return
 // 		}
-		
+
 // 		fmt.Println(product.Name);
 // 		fmt.Println(product.Price);
 
@@ -83,7 +83,7 @@
 
 // 		fmt.Println(id);
 // 		fmt.Println(name);
-	
+
 // 		response.WriteHeader(http.StatusOK)
 // 		response.Write([]byte("GET users"))
 
@@ -96,7 +96,7 @@
 // 			http.Error(response, err.Error(), http.StatusBadRequest)
 // 			return
 // 		}
-		
+
 // 		fmt.Println(user.Name);
 // 		fmt.Println(user.Email);
 
@@ -124,35 +124,49 @@
 // 	http.HandleFunc("/api/users", usersHandler);
 
 // 	log.Println("Server running on port 8000");
-	
+
 // 	err := http.ListenAndServe(":8000", nil)
 // 	if err != nil {
 // 		log.Fatal("Server failed to start:", err)
 // 	}
 // };
 
-
-
-
 /*
-	___IDIOMATIC GO___
+___IDIOMATIC GO___
 */
 package main
 
 import (
 	"log"
 	"net/http"
+	"os"
 
+	"go-http/config"
 	"go-http/handlers"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// Load .env
+	if err := godotenv.Load(); err != nil {
+		log.Println("⚠️ .env not found, using system env")
+	}
+
+	port := os.Getenv("APP_PORT")
+	if port == "" {
+		port = "8080" // default fallback
+	}
+
+	config.ConnectDB();
+	
 	/* Mapping route paths with their handler functions */
 	http.HandleFunc("/api/products", handlers.ProductsHandler);
+	http.HandleFunc("/api/products/", handlers.ProductsHandler);
 
-	log.Println("Server running on port 8000");
+	log.Println("🚀 Server running on port", port)
 	
-	err := http.ListenAndServe(":8000", nil)
+	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		log.Fatal("Server failed to start:", err)
 	}
