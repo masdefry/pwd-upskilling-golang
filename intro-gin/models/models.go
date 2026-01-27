@@ -5,4 +5,5 @@ var AllModels = []interface{}{
     &Product{},
     &ProductImage{},
     &Category{},
+    &User{},
 }

@@ -8,10 +8,10 @@ import (
 )
 
 type ProductImage struct {
-	Id        uuid.UUID			`gorm:"type:uuid;default:uuid_generate_v4();primaryKey" json:"id"`
-	Url		  string 			`json:"url"`
-	ProductId uuid.UUID			`json:"productId"`// Foreign Key (From Model Product)	
-	CreatedAt time.Time		 	`json:"createdAt"`
-	UpdatedAt time.Time		 	`json:"updatedAt"`
-	DeletedAt gorm.DeletedAt 	`gorm:"index" json:"deletedAt"`
+	Id        uuid.UUID			`gorm:"type:uuid;default:uuid_generate_v4();primaryKey"`
+	Url		  string 	
+	ProductId uuid.UUID			// Foreign Key (From Model Product)	
+	CreatedAt time.Time		 	
+	UpdatedAt time.Time		 	
+	DeletedAt gorm.DeletedAt 	`gorm:"index"`
 }

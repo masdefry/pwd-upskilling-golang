@@ -12,6 +12,7 @@ func SetupRouter() *gin.Engine {
 	api := r.Group("/api")
 	{
 		ProductRouter(api)   // Load Product Router
+		UserRouter(api) // Load User Router
 	}
 
 	return r

@@ -8,13 +8,13 @@ import (
 )
 
 type Product struct {
-	Id    			uuid.UUID 		`gorm:"type:uuid;default:uuid_generate_v4();primaryKey" json:"id"`
-	Name  			string 			`gorm:"type:varchar(100)" json:"name"`
-	Price 			int    			`gorm:"check:price >= 0 AND price <= 1000000" json:"price"`
-	Stock 			*int	 		`gorm:"check:price >= 0 AND price <= 1000000" json:"stock"`
+	Id    			uuid.UUID 		`gorm:"type:uuid;default:uuid_generate_v4();primaryKey"`
+	Name  			string 			`gorm:"type:varchar(100)"`
+	Price 			int    			`gorm:"check:price >= 0 AND price <= 1000000"`
+	Stock 			*int	 		`gorm:"check:price >= 0 AND price <= 1000000"`
 	Categories 		[]Category		`gorm:"many2many:product_categories"`
 	ProductImages  	[]ProductImage	`gorm:"foreignKey:ProductId"` // One-to-Many
-	CreatedAt 		time.Time		`json:"createdAt"`
-	UpdatedAt 		time.Time		`json:"updatedAt"`
-	DeletedAt 		gorm.DeletedAt 	`gorm:"index" json:"deletedAt"`
+	CreatedAt 		time.Time		
+	UpdatedAt 		time.Time		
+	DeletedAt 		gorm.DeletedAt 	`gorm:"index"`
 }
